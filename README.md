@@ -6,4 +6,5 @@ Make a simple implementation of “rock paper scissors.”
 - Use prompt() to get input from the user.
 - 5 Rounds
 - Use console.log() to display the results of each round and the winner at the end.
+
 Source: [https://www.theodinproject.com/lessons/foundations-rock-paper-scissors](https://www.theodinproject.com/lessons/foundations-rock-paper-scissors "https://www.theodinproject.com/lessons/foundations-rock-paper-scissors")
