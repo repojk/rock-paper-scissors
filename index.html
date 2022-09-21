@@ -10,7 +10,7 @@
     <button type="button">Rock</button>
     <button type="button">Paper</button>
     <button type="button">Scissors</button>
-    
+
     <script>
         //randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. 
         function getComputerChoice() {
@@ -98,8 +98,21 @@
             console.log(result);
             return result;
         }
-
-        game();
+ 
+        function gameButtonInputExtension() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(btn => btn.addEventListener('click', () => {
+                let playerSelection = btn.textContent;
+                console.log("Player selection: " + playerSelection);
+                let computerSelection = getComputerChoice();
+                console.log("Computer selection: " + computerSelection);
+                let roundResult = playRound(playerSelection, computerSelection);
+                console.log(roundResult);  
+            }));  
+        }
+        
+        //game();        
+        gameButtonInputExtension();
        
     </script>
 </body>
