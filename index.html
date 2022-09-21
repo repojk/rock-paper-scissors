@@ -11,6 +11,8 @@
     <button type="button">Paper</button>
     <button type="button">Scissors</button>
 
+    <div id="display-container"></div>
+
     <script>
         //randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. 
         function getComputerChoice() {
@@ -100,15 +102,27 @@
         }
  
         function gameButtonInputExtension() {
+            let result = '';
+
             const buttons = document.querySelectorAll('button');
+            const divDisplayContainer = document.querySelector('#display-container');
+            const divDisplayRoundResult = document.createElement('div');
+            const divDisplayPlayerSel = document.createElement('div');
+            const divDisplayCompSel = document.createElement('div');
+            
             buttons.forEach(btn => btn.addEventListener('click', () => {
                 let playerSelection = btn.textContent;
-                console.log("Player selection: " + playerSelection);
+                divDisplayPlayerSel.textContent = `Player selection: ${playerSelection}`;
+                divDisplayContainer.appendChild(divDisplayPlayerSel);
+                
                 let computerSelection = getComputerChoice();
-                console.log("Computer selection: " + computerSelection);
+                divDisplayCompSel.textContent = `Computer selection: ${computerSelection}`;
+                divDisplayContainer.appendChild(divDisplayCompSel);
+                
                 let roundResult = playRound(playerSelection, computerSelection);
-                console.log(roundResult);  
-            }));  
+                divDisplayRoundResult.textContent = roundResult;
+                divDisplayContainer.appendChild(divDisplayRoundResult);
+            }));
         }
         
         //game();        
