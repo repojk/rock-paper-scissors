@@ -7,6 +7,12 @@
     <title>JK Odin Rock Paper Scissors</title>
 </head>
 <body>
+    <button type="button">Rock</button>
+    <button type="button">Paper</button>
+    <button type="button">Scissors</button>
+
+    <div id="display-container">First to 5 wins</div>
+
     <script>
         //randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. 
         function getComputerChoice() {
@@ -28,7 +34,6 @@
 
         function playRound(playerSelection, computerSelection) {
             let playerSelectionLower = playerSelection.toLowerCase();
-            //TODO check playerSelectionLower is "rock" or "paper" or scissors
             let computerSelectionLower = computerSelection.toLowerCase();
             let result = "";
 
@@ -56,45 +61,54 @@
             
             return result;
         }
-        
-        //play 5 rounds, keep score, report winner or loser
+ 
         function game() {
             playerScore = 0;
             computerScore = 0;
-            let result = "";
-            console.log("Best of 5");
-            for (let i = 0; i < 5; i++) {
-                console.log("Round: " + (i + 1));
-                let playerSelection = prompt("Rock, Paper, or Scissors?: ");
-                console.log("Player selection: " + playerSelection);
+
+            const buttons = document.querySelectorAll('button');
+            const divDisplayContainer = document.querySelector('#display-container');
+            const divDisplayRoundResult = document.createElement('div');
+            const divDisplayPlayerSel = document.createElement('div');
+            const divDisplayCompSel = document.createElement('div');
+            const divDisplayScore = document.createElement('div');
+            const divDisplayResult = document.createElement('div');
+
+            buttons.forEach(btn => btn.addEventListener('click', () => {
+                let playerSelection = btn.textContent;
+                divDisplayPlayerSel.textContent = `Player selection: ${playerSelection}`;
+                divDisplayContainer.appendChild(divDisplayPlayerSel);
+                
                 let computerSelection = getComputerChoice();
-                console.log("Computer selection: " + computerSelection);
+                divDisplayCompSel.textContent = `Computer selection: ${computerSelection}`;
+                divDisplayContainer.appendChild(divDisplayCompSel);
+                
                 let roundResult = playRound(playerSelection, computerSelection);
-                console.log(roundResult);
-                if (roundResult.includes("Tie")) {
-                    playerScore += 1;
-                    computerScore += 1;
-                }
-                else if (roundResult.includes("You Win")) {
+                divDisplayRoundResult.textContent = roundResult;
+                divDisplayContainer.appendChild(divDisplayRoundResult);
+
+                if (roundResult.includes("You Win")) {
                     playerScore += 1;
                 }
-                else {
+                else if (roundResult.includes("You Lose")) {
                     computerScore += 1;
                 }
-                console.log("Player score: " + playerScore + ", Computer score: " + computerScore);
-            }
+                divDisplayScore.textContent = "Player score: " + playerScore + ", Computer score: " + computerScore;
+                divDisplayContainer.appendChild(divDisplayScore);
 
-            if (playerScore > computerScore) {
-                result = "You Win!";
-            }
-            else {
-                result = "You Lose";
-            }
-
-            console.log(result);
-            return result;
+                if (playerScore === 5) {
+                    divDisplayResult.textContent = "You Win!";
+                    divDisplayContainer.appendChild(divDisplayResult);
+                    return;
+                }
+                if (computerScore === 5) {
+                    divDisplayResult.textContent = "You Lose!";
+                    divDisplayContainer.appendChild(divDisplayResult);
+                    return;
+                }
+            }));
         }
-
+        
         game();
        
     </script>
